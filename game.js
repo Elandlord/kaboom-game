@@ -2,13 +2,13 @@
 kaboom({
   global: true,
   fullscreen: true,
-  scale: 2,
+  scale: 3,
   debug: true,
   clearColor: [0.2, 0.28, 0.36, 1],
 })
 
 const MOVE_SPEED = 120
-const JUMP_FORCE = 250
+const JUMP_FORCE = 500
 const BIG_JUMP_FORCE = 550
 let CURRENT_JUMP_FORCE = JUMP_FORCE
 let isJumping = true
@@ -23,8 +23,14 @@ const FALL_DEATH = 800
 loadRoot('https://raw.githubusercontent.com/Elandlord/kaboom-game/main/assets/')
 loadSprite('eric', 'characters/character_0001.png')
 loadSprite('grass-block-mid', 'tileset/tile_0002.png')
-loadSprite('dirt-mid', 'tileset/tile_0006.png')
+loadSprite('dirt-left', 'tileset/tile_0041.png')
+loadSprite('dirt-mid', 'tileset/tile_0042.png')
+loadSprite('dirt-right', 'tileset/tile_0043.png')
 loadSprite('cactus', 'tileset/tile_0127.png')
+
+loadSprite('snow-left', 'tileset/tile_0081.png')
+loadSprite('snow-mid', 'tileset/tile_0082.png')
+loadSprite('snow-right', 'tileset/tile_0083.png')
 
 loadSprite('blue-enemy', 'characters/character_0016.png')
 
@@ -45,19 +51,19 @@ scene('game', ({level, money}) => {
 
   const maps = [
     [
-      'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-      'xxx       xxxxxxxx          x',
-      'xx        xxxxxxxx          x',
-      'x     xxxxxxxxxxxx          x',
-      'x                           x',
-      'x                           x',
-      'xxxxxxxxxxxxx      xxxxxxxxxx',
-      'xxxxxxxxxxx                  ',
+      'zxxxxxxxxxxxxxxxxxxxxxxxxxxxc',
+      'zxc                       zxc',
+      'zx                        zxc',
+      'z     zxxxxxxxxxxc        zxc',
+      'z                         zxc',
+      'z                         zxc',
+      'zxxxxxxxxxxxc      zxxxxxxxxc',
       '                             ',
       '                             ',
       '                             ',
+      '                             ',
       'x                           x',
-      'x         z              z  x',
+      'x         b              b  x',
       '=============================',
     ],
     [
@@ -71,7 +77,7 @@ scene('game', ({level, money}) => {
       '                             ',
       '                             ',
       'x                           x',
-      'x  z                      z x',
+      'x  b                      b x',
       '=============================',
     ],
   ]
@@ -80,9 +86,14 @@ scene('game', ({level, money}) => {
     width: 18,
     height: 18,
     '=': [sprite('grass-block-mid'), solid()],
+    '1': [sprite('snow-left'), solid()],
+    '2': [sprite('snow-mid'), solid()],
+    '3': [sprite('snow-right'), solid()],
     'c': [sprite('cactus')],
+    'z': [sprite('dirt-left'), solid()],
     'x': [sprite('dirt-mid'), solid()],
-    'z': [sprite('blue-enemy'), solid(), body(), 'dangerous'],
+    'c': [sprite('dirt-right'), solid()],
+    'b': [sprite('blue-enemy'), solid(), body(), 'dangerous'],
   }
 
   const gameLevel = addLevel(maps[level], levelCfg)
@@ -117,7 +128,7 @@ scene('game', ({level, money}) => {
 	});
 
   action('dangerous', (obj) => {
-    let enemySpeed = 20
+    let enemySpeed = 50
 
     if (player.pos.x >= obj.pos.x) {
       obj.move(enemySpeed, 0)
