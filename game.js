@@ -51,19 +51,19 @@ scene('game', ({level, money}) => {
 
   const maps = [
     [
-      'zxxxxxxxxxxxxxxxxxxxxxxxxxxxc',
-      'zxc                       zxc',
-      'zx                        zxc',
-      'z     zxxxxxxxxxxc        zxc',
-      'z                         zxc',
-      'z                         zxc',
+      '                             ',
+      '                             ',
+      '                             ',
+      '      zxxxxxxxxxxc           ',
+      '                             ',
+      '                             ',
       'zxxxxxxxxxxxc      zxxxxxxxxc',
       '                             ',
       '                             ',
       '                             ',
       '                             ',
-      'x                           x',
-      'x         b              b  x',
+      '                             ',
+      '          b              b   ',
       '=============================',
     ],
     [
